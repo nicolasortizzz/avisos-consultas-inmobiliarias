@@ -29,12 +29,12 @@ export async function notifyReservaEmail(r: ReservaRecord): Promise<void> {
     ["Fecha", when],
   ];
   const text = rows.map(([k, v]) => `${k}: ${v}`).join("\n");
-  const subject = `Nueva reserva: ${r.name} — ${r.slot}`;
+  const subject = `Nueva reserva: ${r.name} - ${r.slot}`;
   if (varmailUrl) {
     const res = await fetch(varmailUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ subject, text, _reqid: r.id }),
+      body: JSON.stringify({ subject, text }),
     });
     if (!res.ok) throw new Error(`Varmail error: HTTP ${res.status}`);
     return;
