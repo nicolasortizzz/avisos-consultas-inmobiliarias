@@ -1,19 +1,24 @@
 import Link from "next/link";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { WA_DEFAULT_TEXT, WA_DISPLAY, waLink, waPlanText } from "@/lib/whatsapp";
 
 const planes = [
   {
     name: "Dedicado",
+    slug: "dedicado",
     price: "ARS 550.000",
     detail: "Hasta ~80 avisos · lun–dom · reporte · comparables de zona",
   },
   {
     name: "Completo",
+    slug: "completo",
     price: "ARS 350.000",
     detail: "Hasta ~40 avisos · lun–sáb · seguimiento · reporte semanal",
     recommended: true,
   },
   {
     name: "Avisos",
+    slug: "avisos",
     price: "ARS 180.000",
     detail: "Hasta ~40 avisos priorizados · reporte mensual",
   },
@@ -22,8 +27,9 @@ const planes = [
 export default function HomePage() {
   return (
     <div>
-      <section className="mx-auto max-w-5xl px-4 pb-16 pt-14">
-        <p className="text-sm font-medium uppercase tracking-wide text-stone-500">
+      <section className="bg-gradient-to-b from-emerald-50/60 to-transparent">
+      <div className="mx-auto max-w-5xl px-4 pb-16 pt-16 sm:pt-20">
+        <p className="inline-flex rounded-full bg-white px-3 py-1 text-xs font-medium uppercase tracking-wide text-emerald-800 ring-1 ring-emerald-200">
           Núñez · Belgrano · Saavedra · San Isidro · Martínez
         </p>
         <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-stone-900 sm:text-5xl">
@@ -34,20 +40,24 @@ export default function HomePage() {
           Argenprop y Zonaprop, respondo consultas en menos de 15 minutos en un
           horario fijo, y te mando un reporte cada lunes.
         </p>
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-9 flex flex-col gap-3 sm:flex-row">
           <Link
             href="/reservar"
-            className="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-stone-800"
+            className="rounded-full bg-stone-900 px-6 py-3.5 text-center text-base font-semibold text-white shadow-sm hover:bg-stone-800"
           >
-            Reservar llamada de 20 min
+            Reservar llamada de 20 min →
           </Link>
           <a
-            href="https://wa.me/5491125910795"
-            className="rounded-full border border-stone-300 bg-white px-5 py-2.5 text-sm font-medium text-stone-800 hover:bg-stone-50"
+            href={waLink(WA_DEFAULT_TEXT)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-[#1ebe5b]"
           >
-            WhatsApp 11 2591-0795
+            <WhatsAppIcon /> Escribime al {WA_DISPLAY}
           </a>
         </div>
+        <p className="mt-4 text-sm text-stone-500">Sin compromiso · Te respondo en el día</p>
+      </div>
       </section>
 
       <section className="border-y border-stone-200 bg-white">
@@ -59,20 +69,20 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-14">
-        <h2 className="text-2xl font-semibold text-stone-900">Qué incluye</h2>
-        <ul className="mt-6 space-y-3 text-stone-700">
-          <li className="rounded-2xl border border-stone-200 bg-white p-4">
+        <h2 className="text-2xl font-semibold tracking-tight text-stone-900 sm:text-3xl">Qué incluye</h2>
+        <ul className="mt-6 grid gap-4 text-stone-700 sm:grid-cols-3">
+          <li className="rounded-2xl border border-stone-200 bg-white p-5 leading-relaxed shadow-sm">
             <strong className="text-stone-900">Mejora de avisos.</strong> Datos
             completos (expensas, m², ubicación, fotos, precio) y descripciones
             reescritas.
           </li>
-          <li className="rounded-2xl border border-stone-200 bg-white p-4">
+          <li className="rounded-2xl border border-stone-200 bg-white p-5 leading-relaxed shadow-sm">
             <strong className="text-stone-900">Consultas rápidas.</strong> Menos
             de 15 minutos en horario fijo, con respuestas tipo que ustedes
             aprueban. Uso IA para redactar sobre esas plantillas y reviso cada
             una; lo no previsto se deriva a la inmobiliaria.
           </li>
-          <li className="rounded-2xl border border-stone-200 bg-white p-4">
+          <li className="rounded-2xl border border-stone-200 bg-white p-5 leading-relaxed shadow-sm">
             <strong className="text-stone-900">Reporte semanal.</strong> Consultas,
             visitas y cierres, todos los lunes.
           </li>
@@ -81,7 +91,7 @@ export default function HomePage() {
 
       <section className="border-y border-stone-200 bg-white">
         <div className="mx-auto max-w-5xl px-4 py-14">
-          <h2 className="text-2xl font-semibold text-stone-900">Cómo trabajo</h2>
+          <h2 className="text-2xl font-semibold tracking-tight text-stone-900 sm:text-3xl">Cómo trabajo</h2>
           <ol className="mt-6 grid gap-4 sm:grid-cols-2">
             {[
               ["Semana 1", "Corrijo avisos priorizados y armo las respuestas tipo con ustedes."],
@@ -99,7 +109,7 @@ export default function HomePage() {
       </section>
 
       <section id="planes" className="mx-auto max-w-5xl px-4 py-14">
-        <h2 className="text-2xl font-semibold text-stone-900">Planes</h2>
+        <h2 className="text-2xl font-semibold tracking-tight text-stone-900 sm:text-3xl">Planes</h2>
         <p className="mt-2 text-stone-600">
           Tres opciones mensuales. La recomendada es Completo.
         </p>
@@ -107,7 +117,7 @@ export default function HomePage() {
           {planes.map((p) => (
             <div
               key={p.name}
-              className={`rounded-2xl border p-5 ${
+              className={`flex flex-col rounded-2xl border p-6 shadow-sm ${
                 p.recommended
                   ? "border-stone-900 bg-stone-900 text-white"
                   : "border-stone-200 bg-white text-stone-900"
@@ -130,6 +140,26 @@ export default function HomePage() {
               <p className={`mt-3 text-sm ${p.recommended ? "text-stone-300" : "text-stone-600"}`}>
                 {p.detail}
               </p>
+              <div className="mt-6 flex flex-col gap-2 pt-2 sm:mt-auto">
+                <Link
+                  href={`/reservar?plan=${p.slug}`}
+                  className={`rounded-full px-4 py-2.5 text-center text-sm font-semibold ${
+                    p.recommended ? "bg-white text-stone-900 hover:bg-stone-100" : "bg-stone-900 text-white hover:bg-stone-800"
+                  }`}
+                >
+                  Reservar llamada
+                </Link>
+                <a
+                  href={waLink(waPlanText(p.name))}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center justify-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-medium ${
+                    p.recommended ? "border-white/30 text-white hover:bg-white/10" : "border-emerald-600 text-emerald-700 hover:bg-emerald-50"
+                  }`}
+                >
+                  <WhatsAppIcon className="h-4 w-4" /> Consultar por WhatsApp
+                </a>
+              </div>
             </div>
           ))}
         </div>
@@ -141,7 +171,7 @@ export default function HomePage() {
 
       <section id="garantia" className="border-y border-stone-200 bg-white">
         <div className="mx-auto max-w-5xl px-4 py-14">
-          <h2 className="text-2xl font-semibold text-stone-900">Garantía</h2>
+          <h2 className="text-2xl font-semibold tracking-tight text-stone-900 sm:text-3xl">Garantía</h2>
           <p className="mt-4 max-w-3xl text-stone-700">
             Si en los primeros 30 días no cumplo los plazos de avisos, el 90% de
             las consultas del horario a tiempo o el reporte de todos los lunes,
@@ -155,22 +185,24 @@ export default function HomePage() {
         <div className="rounded-3xl bg-stone-900 px-6 py-10 text-white sm:px-10">
           <h2 className="text-2xl font-semibold">Empezá con una llamada corta</h2>
           <p className="mt-3 max-w-2xl text-stone-300">
-            20 minutos de diagnóstico. Si preferís, ingresá con Google para
-            guardar tu pedido en tu cuenta.
+            20 minutos de diagnóstico, sin compromiso. Reservá en menos de un
+            minuto o escribime directo por WhatsApp.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href="/reservar"
-              className="rounded-full bg-white px-5 py-2.5 text-sm font-medium text-stone-900 hover:bg-stone-100"
+              className="rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-stone-900 hover:bg-stone-100"
             >
-              Reservar
+              Reservar llamada
             </Link>
-            <Link
-              href="/cuenta"
-              className="rounded-full border border-white/30 px-5 py-2.5 text-sm font-medium text-white hover:bg-white/10"
+            <a
+              href={waLink(WA_DEFAULT_TEXT)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#1ebe5b]"
             >
-              Ingresar
-            </Link>
+              <WhatsAppIcon className="h-4 w-4" /> WhatsApp {WA_DISPLAY}
+            </a>
           </div>
         </div>
       </section>

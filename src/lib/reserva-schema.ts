@@ -23,13 +23,11 @@ export const slotOptions = [
 
 export const reservaSchema = z.object({
   name: z.string().trim().min(2, "Escribí tu nombre."),
-  email: z.string().trim().email("Email inválido."),
-  phone: z.string().trim().min(8, "Teléfono / WhatsApp."),
-  agency: z.string().trim().min(2, "Nombre de la inmobiliaria."),
-  zone: z.enum(["nunez", "belgrano", "saavedra", "san-isidro", "martinez"], {
-    message: "Elegí una zona de trabajo.",
-  }),
-  plan: z.enum(["", "dedicado", "completo", "avisos"]),
+  email: z.union([z.literal(""), z.string().trim().email("Revisá el email.")]).optional().default(""),
+  phone: z.string().trim().min(8, "Dejame un WhatsApp válido (ej. 11 2345-6789)."),
+  agency: z.string().trim().max(120).optional().default(""),
+  zone: z.enum(["", "nunez", "belgrano", "saavedra", "san-isidro", "martinez"]).optional().default(""),
+  plan: z.enum(["", "dedicado", "completo", "avisos"]).optional().default(""),
   slot: z.enum(["manana", "tarde", "noche"], {
     message: "Elegí una franja para la llamada.",
   }),
