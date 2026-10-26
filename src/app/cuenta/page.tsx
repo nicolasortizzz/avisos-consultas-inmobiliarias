@@ -15,16 +15,16 @@ export default async function CuentaPage() {
     const reservas = await listReservasForEmail(session.user.email);
     return (
       <div className="mx-auto max-w-xl px-4 py-12">
-        <h1 className="text-3xl font-semibold text-stone-900">Mi cuenta</h1>
-        <p className="mt-2 text-stone-600">
+        <h1 className="text-3xl font-semibold text-ink">Mi cuenta</h1>
+        <p className="mt-2 text-ink-soft">
           {session.user.name} · {session.user.email}
         </p>
         <div className="mt-8 space-y-3">
-          <h2 className="text-sm font-medium uppercase tracking-wide text-stone-500">
+          <h2 className="text-sm font-medium uppercase tracking-wide text-ink-mute">
             Tus pedidos de llamada
           </h2>
           {reservas.length === 0 ? (
-            <p className="text-sm text-stone-600">
+            <p className="text-sm text-ink-soft">
               Todavía no hay pedidos.{" "}
               <Link href="/reservar" className="underline">
                 Reservar ahora
@@ -35,9 +35,9 @@ export default async function CuentaPage() {
               {reservas.map((r) => (
                 <li
                   key={r.id}
-                  className="rounded-xl border border-stone-200 bg-white p-4 text-sm text-stone-700"
+                  className="rounded-xl border border-ink/10 bg-white p-4 text-sm text-ink-soft"
                 >
-                  <p className="font-medium text-stone-900">{r.agency}</p>
+                  <p className="font-medium text-ink">{r.agency}</p>
                   <p>
                     {r.zone} · {r.slot} · {new Date(r.createdAt).toLocaleString("es-AR")}
                   </p>
@@ -53,7 +53,7 @@ export default async function CuentaPage() {
             await signOut({ redirectTo: "/" });
           }}
         >
-          <button className="text-sm text-stone-600 underline" type="submit">
+          <button className="text-sm text-ink-soft underline" type="submit">
             Cerrar sesión
           </button>
         </form>
@@ -63,8 +63,8 @@ export default async function CuentaPage() {
 
   return (
     <div className="mx-auto max-w-md px-4 py-12">
-      <h1 className="text-3xl font-semibold text-stone-900">Ingresar</h1>
-      <p className="mt-3 text-stone-600">
+      <h1 className="text-3xl font-semibold text-ink">Ingresar</h1>
+      <p className="mt-3 text-ink-soft">
         Guardá tu cuenta y tus pedidos de llamada. Lo mínimo: email y nombre.
       </p>
 
@@ -78,7 +78,7 @@ export default async function CuentaPage() {
         >
           <button
             type="submit"
-            className="w-full rounded-full bg-stone-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-stone-800"
+            className="w-full rounded-full bg-forest-800 px-4 py-2.5 text-sm font-medium text-white hover:bg-forest-900"
           >
             Continuar con Google
           </button>
@@ -107,18 +107,18 @@ export default async function CuentaPage() {
               name="name"
               placeholder="Nombre"
               required
-              className="w-full rounded-xl border border-stone-300 px-3 py-2"
+              className="w-full rounded-xl border border-ink/10 px-3 py-2"
             />
             <input
               name="email"
               type="email"
               placeholder="Email"
               required
-              className="w-full rounded-xl border border-stone-300 px-3 py-2"
+              className="w-full rounded-xl border border-ink/10 px-3 py-2"
             />
             <button
               type="submit"
-              className="w-full rounded-full bg-stone-900 px-4 py-2.5 text-sm font-medium text-white"
+              className="w-full rounded-full bg-forest-800 px-4 py-2.5 text-sm font-medium text-white"
             >
               Entrar (prueba)
             </button>
@@ -126,7 +126,7 @@ export default async function CuentaPage() {
         </div>
       )}
 
-      <p className="mt-6 text-center text-sm text-stone-500">
+      <p className="mt-6 text-center text-sm text-ink-mute">
         <Link href="/reservar" className="underline">
           Reservar sin ingresar
         </Link>

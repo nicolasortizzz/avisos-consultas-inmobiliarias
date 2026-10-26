@@ -3,16 +3,21 @@
 @tailwind utilities;
 
 :root {
-  --background: #fafaf9;
-  --foreground: #1c1917;
+  --background: #f7f4ee;
+  --foreground: #1d2a25;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-}
+html { scroll-behavior: smooth; }
+body { color: var(--foreground); background: var(--background); }
+::selection { background: #d8e6dd; }
 
-html {
-  scroll-behavior: smooth;
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-[15px] font-semibold transition duration-200 focus:outline-none focus-visible:ring-4; }
+  .btn-primary { @apply btn bg-forest-800 text-white shadow-soft hover:bg-forest-900 focus-visible:ring-forest-600/30; }
+  .btn-secondary { @apply btn border border-ink/15 bg-white text-ink hover:border-ink/30 hover:bg-ivory-100 focus-visible:ring-ink/10; }
+  .btn-wa { @apply btn bg-[#1faa59] text-white shadow-soft hover:bg-[#178f4a] focus-visible:ring-[#1faa59]/30; }
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.18em] text-clay-600; }
+  .h2 { @apply font-display text-3xl font-medium tracking-tight text-ink sm:text-[2.6rem] sm:leading-[1.1]; }
+  .card { @apply rounded-2xl border border-ink/10 bg-white shadow-soft; }
+  .input { @apply w-full rounded-xl border border-ink/15 bg-ivory/40 px-4 py-3 text-[15px] text-ink placeholder:text-ink-mute transition focus:border-forest-600 focus:bg-white focus:outline-none focus:ring-4 focus:ring-forest-600/10; }
 }

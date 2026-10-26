@@ -31,12 +31,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true, id: "ignored" });
   }
 
-  const session = await auth();
-  const userId =
-    (session?.user as { id?: string } | undefined)?.id ||
-    session?.user?.email ||
-    null;
+  let userId: string | null = null;
+  try {
+    const session = await auth();
+    userId =
+      (session?.user as { id?: string } | undefined)?.id ||
+      session?.user?.email ||
+      null;
+  } catch {
+    userId = null;
+  }
 
+  try {
   const record = await createReserva({
     userId,
     name: data.name,
@@ -50,6 +56,13 @@ export async function POST(req: Request) {
   });
 
   return NextResponse.json({ ok: true, id: record.id }, { status: 201 });
+  } catch (err) {
+    console.error("POST /api/reservas failed", err);
+    return NextResponse.json(
+      { ok: false, formErrors: ["No pude guardar la reserva. Escribime por WhatsApp al 11 2591-0795 y lo coordinamos."] },
+      { status: 500 }
+    );
+  }
 }
 
 export async function GET() {
@@ -60,6 +73,6 @@ export async function GET() {
       { status: 401 }
     );
   }
-  const items = await listReservasForEmail(session.user.email);
+  const items = await listReservasForEmail(session.user.email).catch(() => []);
   return NextResponse.json({ ok: true, items });
 }

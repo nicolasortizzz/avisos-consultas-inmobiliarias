@@ -2,7 +2,19 @@ import { promises as fs } from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
 
-const dataDir = path.join(process.cwd(), "data");
+import os from "os";
+
+// On Vercel/Lambda the bundle dir (/var/task) is read-only: write under /tmp there.
+// Locally (next dev / next start without those vars) keep ./data.
+export function resolveDataDir(env: NodeJS.ProcessEnv = process.env): string {
+  if (env.DATA_DIR) return env.DATA_DIR;
+  if (env.VERCEL || env.AWS_LAMBDA_FUNCTION_NAME) {
+    return path.join(os.tmpdir(), "inmobiliarias-data");
+  }
+  return path.join(process.cwd(), "data");
+}
+
+const dataDir = resolveDataDir();
 
 export type UserRecord = {
   id: string;
@@ -86,8 +98,14 @@ export async function createReserva(
     id: randomUUID(),
     createdAt: new Date().toISOString(),
   };
+  // Always log so it shows up in Vercel logs even if /tmp is wiped between invocations.
+  console.log(JSON.stringify({ type: "reserva", ...record }));
   reservas.push(record);
-  await writeJson("reservas.json", reservas);
+  try {
+    await writeJson("reservas.json", reservas);
+  } catch (err) {
+    console.error("reserva storage failed (logged above)", err);
+  }
   return record;
 }
 
