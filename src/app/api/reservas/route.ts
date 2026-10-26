@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { createReserva, listReservasForEmail } from "@/lib/store";
+import { notifyReservaEmail } from "@/lib/notify-email";
 import { reservaSchema } from "@/lib/reserva-schema";
 
 export async function POST(req: Request) {
@@ -54,6 +55,12 @@ export async function POST(req: Request) {
     slot: data.slot,
     message: data.message || "",
   });
+
+  try {
+    await notifyReservaEmail(record);
+  } catch (err) {
+    console.error("Reserva email notification failed", err);
+  }
 
   return NextResponse.json({ ok: true, id: record.id }, { status: 201 });
   } catch (err) {
