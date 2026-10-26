@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { WA_DEFAULT_TEXT, WA_DISPLAY, waLink, waPlanText } from "@/lib/whatsapp";
@@ -98,6 +99,32 @@ export default function HomePage() {
               <p className="font-display text-4xl text-forest-800">{v}</p>
               <p className="mt-1 text-sm text-ink-soft">{l}</p>
             </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Socios */}
+      <section id="socios" className="mx-auto max-w-6xl scroll-mt-24 px-6 pt-24">
+        <div className="max-w-2xl">
+          <p className="eyebrow">Socios</p>
+          <h2 className="h2 mt-4">Inmobiliarias con las que ya trabajamos.</h2>
+        </div>
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {[
+            { n: "Carlos Milani", z: "Morón, zona oeste", u: "https://carlosmilani.com/", img: "/socios/carlos-milani.jpg", w: 300, h: 150 },
+            { n: "Fernández González Propiedades", z: "Banfield, zona sur", u: "https://www.fernandezgonzalez.com/", img: "/socios/fernandez-gonzalez.jpg", w: 300, h: 150 },
+            { n: "MM Fuentes", z: "Haedo, zona oeste", u: "https://www.inmobiliariammfuentes.com/", img: "/socios/mm-fuentes.png", w: 1024, h: 1024 },
+          ].map((p) => (
+            <a key={p.n} href={p.u} target="_blank" rel="noopener noreferrer"
+              className="card group flex flex-col p-8 transition hover:-translate-y-0.5 hover:shadow-lift">
+              <div className="flex h-28 items-center justify-center rounded-xl bg-white">
+                <Image src={p.img} alt={`Logo de ${p.n}`} width={p.w} height={p.h}
+                  className="max-h-24 w-auto object-contain grayscale-[35%] transition group-hover:grayscale-0" />
+              </div>
+              <h3 className="mt-6 text-xl font-semibold text-ink">{p.n}</h3>
+              <p className="mt-1 text-sm text-ink-soft">{p.z}</p>
+              <p className="mt-4 text-sm font-semibold text-clay-600">Visitar sitio ↗</p>
+            </a>
           ))}
         </div>
       </section>

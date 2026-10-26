@@ -21,6 +21,7 @@ export async function Header() {
         <nav className="flex items-center gap-1 text-sm text-ink-soft sm:gap-2">
           <Link href="/#servicio" className="hidden rounded-full px-3 py-2 hover:text-ink lg:inline">Servicio</Link>
           <Link href="/#proceso" className="hidden rounded-full px-3 py-2 hover:text-ink lg:inline">Proceso</Link>
+          <Link href="/#socios" className="hidden rounded-full px-3 py-2 hover:text-ink lg:inline">Socios</Link>
           <Link href="/#planes" className="hidden rounded-full px-3 py-2 hover:text-ink md:inline">Planes</Link>
           <Link href="/#preguntas" className="hidden rounded-full px-3 py-2 hover:text-ink lg:inline">Preguntas</Link>
           <Link href="/cuenta" className="hidden rounded-full px-3 py-2 hover:text-ink md:inline">{signedIn ? "Mi cuenta" : "Ingresar"}</Link>
