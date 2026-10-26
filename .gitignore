@@ -36,3 +36,6 @@ next-env.d.ts
 # local data (users + reservas)
 /data/*.json
 !/data/.gitkeep
+
+# local secrets
+.secrets/
